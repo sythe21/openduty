@@ -33,6 +33,18 @@ LOGIN_URL = '/login/'
 
 PROFILE_MODULE = 'openduty.UserProfile'
 
+#LDAP RELATED
+AUTH_LDAP_SERVER_URI = "ldap://165.237.86.86:389"
+AUTH_LDAP_START_TLS = False
+AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
+AUTH_LDAP_USER_DN_TEMPLATE = "%(user)s@twcable.com"
+
+AUTH_LDAP_USER_ATTR_MAP = {
+"first_name": "uid",
+"last_name": "sn",
+"email": "mail"
+}
+
 
 # Application definition
 INSTALLED_APPS = (
@@ -68,6 +80,15 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
+    'openduty.middleware.basicauthmiddleware.BasicAuthMiddleware',
 )
 
 ROOT_URLCONF = 'openduty.urls'
@@ -114,7 +135,7 @@ STATICFILES_FINDERS = (
 
 AUTH_PROFILE_MODULE = 'openduty.UserProfile'
 
-BASE_URL = ""
+BASE_URL = "http://openduty.ipvs-graph.cloud.twc.net"
 
 XMPP_SETTINGS = {
 }
@@ -141,13 +162,24 @@ CACHES = {
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'openduty',
+        'USER': 'openduty',
+        'PASSWORD': 'kungfupow1',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {
+            "init_command": "SET storage_engine=MyISAM",
+         }
+    }
 }
 
 TWILIO_ACCOUNT_SID = TWILIO_SETTINGS.get("SID", "disabled")
 TWILIO_AUTH_TOKEN = TWILIO_SETTINGS.get("token", "disabled")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'kungfusecret'
 
 import sys
 if 'test' in sys.argv:
