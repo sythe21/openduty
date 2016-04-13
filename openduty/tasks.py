@@ -4,7 +4,7 @@ from notification.helper import NotificationHelper
 __author__ = 'deathowl'
 
 from openduty.models import Incident, IncidentSilenced, Service, ServiceSilenced
-from openduty.celery import app
+from openduty.celeryapp import app
 
 @app.task(ignore_result=True)
 def unsilence_incident(incident_id):
