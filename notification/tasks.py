@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from openduty.celery import app
+from openduty.celeryapp import app
 from notification.notifier.pushover import PushoverNotifier
 from notification.notifier.xmpp import XmppNotifier
 from notification.notifier.email import EmailNotifier
