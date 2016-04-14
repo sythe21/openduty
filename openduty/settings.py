@@ -141,7 +141,7 @@ XMPP_SETTINGS = {
 }
 
 EMAIL_SETTINGS = {
-'user': "dl-wes-ip-video.services@twcable.com"
+    'user': "dl-wes-ip-video.services@twcable.com"
 }
 
 TWILIO_SETTINGS = {
