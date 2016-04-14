@@ -14,8 +14,6 @@ class Response(object):
 
 class SlackNotifier:
 
-    API_CHAT_URL = 'https://slack.com/api/chat.postMessage?token={token}&channel={channel}&text={text}'
-
     def __init__(self, config):
         self.__config = config
 
@@ -25,8 +23,7 @@ class SlackNotifier:
         token = self.__config['apikey']
         text = notification.message
         response = requests.get(token, channel=channel, text=text),
-                          timeout=DEFAULT_TIMEOUT,
-                          **kwargs)
+                          timeout=DEFAULT_TIMEOUT)
 
         response.raise_for_status()
 
