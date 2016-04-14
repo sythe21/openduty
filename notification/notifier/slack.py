@@ -1,14 +1,36 @@
-from slacker import Slacker
+import urllib
+import json
+import requests
+
+API_CHAT_URL = 'https://slack.com/api/chat.postMessage?token={token}&channel={channel}&text={text}'
+DEFAULT_TIMEOUT = 10
+
+class Response(object):
+    def __init__(self, body):
+        self.raw = body
+        self.body = json.loads(body)
+        self.successful = self.body['ok']
+        self.error = self.body.get('error')
 
 class SlackNotifier:
 
+    API_CHAT_URL = 'https://slack.com/api/chat.postMessage?token={token}&channel={channel}&text={text}'
+
     def __init__(self, config):
         self.__config = config
-    
+
     def notify(self, notification):
-        slack = Slacker(self.__config['apikey'])
-        response = slack.chat.post_message(notification.user_to_notify.profile.slack_room_name, notification.message,
-                                           username="ryan.holcombe", icon_url="https://slack.global.ssl.fastly.net/1937/img/services/pagerduty_48.png")
+
+        channel = urllib.quote_plus(notification.user_to_notify.profile.slack_room_name)
+        token = self.__config['apikey']
+        text = notification.message
+        response = requests.get(token, channel=channel, text=text),
+                          timeout=DEFAULT_TIMEOUT,
+                          **kwargs)
+
+        response.raise_for_status()
+
+        response = Response(response.text)
         if not response.error:
             print "Slack message sent"
         else:
