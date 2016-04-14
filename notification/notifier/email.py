@@ -25,10 +25,7 @@ class EmailNotifier:
         message = """\From: %s\nTo: %s\nSubject: %s\n\n%s
             """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
         try:
-            server = smtplib.SMTP("smtp.gmail.com", 587)
-            server.starttls()
-            server.ehlo()
-            server.login(gmail_user, gmail_pwd)
+            server = smtplib.SMTP("chrcnc-mail-relay.os.cloud.twc.net", 25)
             server.sendmail(FROM, TO, message)
             server.close()
             print 'successfully sent the mail'
