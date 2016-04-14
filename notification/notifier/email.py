@@ -10,8 +10,6 @@ class EmailNotifier:
         self.__config = config
     def notify(self, notification):
 
-        gmail_user = self.__config['user']
-        gmail_pwd = self.__config['password']
         truncate_length = int(self.__config.get('max_subject_length', 100))
         FROM = self.__config['user']
         TO = [notification.user_to_notify.email]

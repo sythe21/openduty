@@ -141,13 +141,14 @@ XMPP_SETTINGS = {
 }
 
 EMAIL_SETTINGS = {
+'user': "dl-wes-ip-video.services@twcable.com"
 }
 
 TWILIO_SETTINGS = {
 }
 
 SLACK_SETTINGS = {
-    'apikey': 'xoxp-11659074498-11654692950-34736804422-585967883e'
+    'apikey': "xoxp-11659074498-11654692950-34736804422-585967883e"
 }
 
 PROWL_SETTINGS = {
