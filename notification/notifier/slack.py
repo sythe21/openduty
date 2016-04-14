@@ -22,8 +22,7 @@ class SlackNotifier:
         channel = urllib.quote_plus(notification.user_to_notify.profile.slack_room_name)
         token = self.__config['apikey']
         text = notification.message
-        response = requests.get(token, channel=channel, text=text),
-                          timeout=DEFAULT_TIMEOUT)
+        response = requests.get(token, channel=channel, text=text), timeout=DEFAULT_TIMEOUT)
 
         response.raise_for_status()
 
